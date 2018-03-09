@@ -10,14 +10,12 @@ function [roots, yIntercept] = getIntercepts(xs, y)
     %Getting the x-roots
     roots = zeros(1, length(indexChangeList));
     
-    counter = 0;
-    for i = 1:length(indexChangeList)
-        signIndex = indexChangeList(i);
-        
-        if abs(y(xs(signIndex))) < abs(y(xs(signIndex+1)))
-            roots(counter) = xs(signIndex);
+    counter = 0; 
+    for i = indexChangeList
+        if abs(y(xs(i))) < abs(y(xs(i+1)))
+            roots(counter) = xs(i);
         else
-            roots(counter) = xs(signIndex+1);
+            roots(counter) = xs(i+1);
         end
         counter = counter + 1; 
     end
