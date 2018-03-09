@@ -1,0 +1,24 @@
+function [roots, yIntercept] = getIntercepts(xs, y)
+% Given xs  the original function, get the x-intercept
+% and y intercept of the original function
+
+    % Get the yvalues using the original function: 
+    ys = y(xs);
+    % Get indices in ys where y changes sign (indices of x roots)
+    indexChangeList = find(diff(sign(ys)));
+    
+    %Getting the x-roots
+    roots = zeros(length(indexChangeList));
+    
+    counter = 0;
+    for i = indexChangeList
+        if y(xs(i)) < y(xs(i+1))
+            roots(counter) = xs(i);
+        else
+            roots(counter) = xs(i_
+        counter = counter + 1; 
+    end
+    
+    yIntercept = y(0); % is the y-value where x = 0
+    
+end

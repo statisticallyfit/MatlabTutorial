@@ -1,4 +1,4 @@
-function theMin = minVec(vec)
+function [theMin] = minVec(vec)
     theMin = vec(1);
     
     for i = 2:length(vec)
