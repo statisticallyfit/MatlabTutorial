@@ -8,6 +8,6 @@ function [xs, ys] = makeFluidYs(xs, force, constants)
     y = @(x, F, a, b) F * exp(-a*x) .* sin(b*x);
     
     % Make the y values
-    ys = y(xs, force, a, b)
+    ys = y(xs, force, a, b);
     
 end
