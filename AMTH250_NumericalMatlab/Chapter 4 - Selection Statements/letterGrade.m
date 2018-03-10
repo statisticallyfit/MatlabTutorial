@@ -1,6 +1,8 @@
 function letter = letterGrade(quizNumberGrade)
     % Returns a letter given a quiz numeric grade from 0 to 10
     
+    %disp(['n = ', num2str(n)])
+    
     % error check first
     if quizNumberGrade < 0 || quizNumberGrade > 10
         error('Bad input - not a valid grade')
