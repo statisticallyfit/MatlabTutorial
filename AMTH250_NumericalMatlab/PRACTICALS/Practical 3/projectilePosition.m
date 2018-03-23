@@ -1,4 +1,4 @@
-function [x, y] = projectilePosition(t, v0, theta0)
+function [x, y] = projectilePosition(v0, theta0, t)
 % For a time t, the function calculates the position
 % of a projectile, (x,y). 
 %

@@ -25,7 +25,7 @@ a = 1.4;
 b = 0.3; 
 
 % Iterate the map row-by-row for x and y
-for i = 1 : numIterations-1 
+for i = 1 : numIterations - 1 
     x(i + 1, :) = 1 - a * x(i, :) .^2 + y(i, :);
     y(i + 1, :) = b*x(i, :);
 end

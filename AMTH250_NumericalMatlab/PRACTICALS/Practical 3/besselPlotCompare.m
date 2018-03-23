@@ -6,6 +6,8 @@ function besselPlotCompare()
     % Get the data.
     xs = 0: 0.01: 10;
     nu = 1;
+    % basically we vectorize over the xs, which is what the for-loop in
+    % solutions code does as well. 
     ysMyBessel = besselJTruncated(nu, xs);
     ysBessel = besselj(nu, xs);
     
