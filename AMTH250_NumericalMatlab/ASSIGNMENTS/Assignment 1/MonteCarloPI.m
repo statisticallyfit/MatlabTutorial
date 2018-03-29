@@ -4,9 +4,6 @@
 % an estimate of the irration Pi. 
 
 % First
-close all; % close all figures/plots
-clf; % clears the current figure/plot - if we do close all this is not
-% necessary. 
 clear all; % clear all variables in the base workspace so the script doesn't borrow  from it. 
 clc; % clear command window. 
 
@@ -52,6 +49,9 @@ disp(['The estimate of pi = ', num2str(estimatePI)])
 
 % Step 5: visualizing the calculation: 
 
+close all; % close all figures/plots
+clf; % clears the current figure/plot - if we do close all this is not necessary. 
+
 % getting points that lie outside the circle versus inside and on the
 % circle
 xsInside = zeros(1, c); % is a vector to hold x-coordinate of coordinate
@@ -75,22 +75,32 @@ end
 %figure(1)
 
 
+
+
 % plot the square with solid black lines
-plot([-1 -1, -1 1], 'k-') % at x = -1, straight vertical line from -1 to 1
+plot([-1 -1], [-1 1], 'k-') % at x = -1, straight vertical line from -1 to 1
 hold on
 grid on; grid minor
-plot([1 1, -1 1], 'k-') % at x = 1, straight vertical line from -1 to 1
-plot([-1 1, -1 -1], 'k-') % the bottom part of the square
-plot([-1 1, 1 1], 'k-') % the top part of the square. 
+plot([1 1], [-1 1], 'k-') % at x = 1, straight vertical line from -1 to 1
+plot([-1 1], [-1 -1], 'k-') % the bottom part of the square
+plot([-1 1], [1 1], 'k-') % the top part of the square. 
 
-axis([-1 1, -1 1]) % setting xlimits [-1, 1] and ylimits [-1, 1]
+axis([-1.5 1.5, -1.2 1.2]) % setting xlimits [-1.3, 1.3] and ylimits [-1.4, 1.4]
 
 % plot the unit circle with a solid black curve
 theta = 0:0.01: 2*pi; %the domain of the unit circle [0, 2pi]
 plot(cos(theta), sin(theta), 'k-'); % plotting the circle
 
+% plotting the x and y axes (just for clarity)
+plot([0 0], [-1, 1], 'k-') % the y-axis
+plot([-1, 1], [0, 0], 'k-') % the axis, both with black lines
+
 % Plotting the Monte Carlo Data. 
 plot(xsInside, ysInside, 'r.') % plot inside dots as red points. 
 plot(xsOutside, ysOutside, 'b.') % plot outside dots as blue dots. 
 
-
+% Now labels
+xlabel('x')
+ylabel('y')
+title('The Monte Carlo Estimate of Pi')
+%legend('inside points', 'outside points')
