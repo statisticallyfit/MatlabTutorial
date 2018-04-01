@@ -1,14 +1,18 @@
 % Question 2
-
-
-function [F, Q] = fib(n)
 % n = assumed >= 2. 
 % F = the first n elements of the fibonacci sequence.
 % Q = the first (n-1) quptients derived
 % from consecutive terms of the sequence (F2/F1, F3/F2, ... Fn/F(n-1))
 
+function [F, Q] = fib(n)
+
+
 % NOTE: as n -> Inf, Fn/(Fn-1) = golden ratio = (1 + sqrt(5))/2
 
+    if n < 2
+        error('n must be >= 2.')
+    end
+    
     % initialize F1 = 1 and F2 = 1 in the F vector.
     F = [1, 1, zeros(1, n -3 + 1)];
     

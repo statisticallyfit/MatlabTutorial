@@ -5,7 +5,7 @@
 
 % First
 clear all; % clear all variables in the base workspace so the script doesn't borrow  from it. 
-clc; % clear command window. 
+clc; % clear command window for clarity. 
 
 
 % Step 1: prompt user for an integer n 
@@ -62,21 +62,19 @@ xsOutside = zeros(1, n - c);
 ysOutside = zeros(1, n- c); 
 
 for ii = 1:n
-    %  
+    %   if points are inside and on the circle, put them in the 'inside'
+    %   vector. 
     if xs(ii)^2 + ys(ii)^2 <= 1
         xsInside(ii) = xs(ii);
         ysInside(ii) = ys(ii);
-    else % the points are outside the circle, put them in the 'outside' matrix
+    else % the points are outside the circle, put them in the 'outside' vector
         xsOutside(ii) = xs(ii);
         ysOutside(ii) = ys(ii);
     end
 end
 
-%figure(1)
 
-
-
-
+figure(1)
 % plot the square with solid black lines
 plot([-1 -1], [-1 1], 'k-') % at x = -1, straight vertical line from -1 to 1
 hold on

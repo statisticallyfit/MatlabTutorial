@@ -1,6 +1,7 @@
 % Question 1
-
 % A function to return the real zeros of the quadratic equation
+% that has the form: ax^2 + bx + c = 0
+
 function [x1, x2] = findRoots(a, b, c)
 % a, b, c are (assuming real) coefficients that correspond to the 
 % coefficients in the quadratic equation: ax^2 + bx + c = 0

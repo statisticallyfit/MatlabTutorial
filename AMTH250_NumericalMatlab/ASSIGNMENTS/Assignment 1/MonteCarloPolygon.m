@@ -9,9 +9,10 @@ clear all; % clear all variables in base workspace so we don't
 
 
 
-% Step 1: enter the data
-xsPolygon = [8.25 5.69 2.3 1.43 -0.73 -3.29 -5.91 -8.02 -3.76 -1.31 1.66];
-ysPolygon = [1.22 5.01 5.95 4.02 5.42 3.79 1.75 -1.81 -4.49 -2.04 -7.11]; 
+% Step 1: enter the data (note - the first and last elements of each vector
+% must be equal. 
+xsPolygon = [8.25 5.69 2.3 1.43 -0.73 -3.29 -5.91 -8.02 -3.76 -1.31 1.66 8.25];
+ysPolygon = [1.22 5.01 5.95 4.02 5.42 3.79 1.75 -1.81 -4.49 -2.04 -7.11 1.22]; 
 
 % Step 2: find the xmin, xmax, ymin, ymax
 xmin = min(xsPolygon);
