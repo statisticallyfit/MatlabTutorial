@@ -1,4 +1,4 @@
-
+% Sauer book, page28
 
 % Program 1.1: Bisection Method
 % Computing approximate solution of f(x) = 0
@@ -20,7 +20,7 @@ function xSol = bisect(f, a, b, tol)
         
         if fc == 0 % found it!
             a = c;
-            b = c;
+            b = c; % with this assignment, we are making (b-a)/2 = 0 < tol to break out of while loop
             %break
         end
         

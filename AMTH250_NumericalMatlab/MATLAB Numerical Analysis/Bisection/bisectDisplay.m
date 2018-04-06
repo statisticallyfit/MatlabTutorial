@@ -50,7 +50,7 @@ function xSol = bisectDisplay (f, a, b, tol, maxIterations)
         end
         
         % when interval width is less than tolerance, we have this
-        % approximate or exact solution (or algo could fail to converge,
+        % approximate or exact solution (or algo could fail to converge)
         xSol = xEst;
         
     end
