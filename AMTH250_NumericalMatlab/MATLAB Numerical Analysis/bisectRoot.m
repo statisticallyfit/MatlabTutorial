@@ -4,7 +4,7 @@
 % tests: fx = x^3 + x - 1   [0,1]
 % fx = 8 - 4.5 * (x - sin(x))   [2,3]
 
-function xSol = bisectDisplay (f, a, b, tol, maxIterations)
+function xSol = bisectRoot (f, a, b, tol, maxIterations)
 
     fa = f(a);
     fb = f(b);

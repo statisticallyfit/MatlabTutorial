@@ -17,18 +17,18 @@
 % tol = tolerance
 % maxIterations
 % xSol = solution
-function xSol = newtonDisplay(f, fDeriv, xInitial, tol, maxIterations)
+function xSol = newtonRoot(f, fDeriv, xInitial, tol, maxIterations)
 
     xEst = xInitial; 
     
-    fprintf('\niteration     xi (next)             x (est or final sol)           itol               tol\n');
+    fprintf('\niteration     xi (next, or final sol)       x (estimate)                itol               tol\n');
     
     for i = 1: maxIterations
         xi = xEst - f(xEst) / fDeriv(xEst);
         
-        iTol = abs(xi - xEst)/xEst; % calculating relative error at xi
+        iTol = abs((xi - xEst)/xEst); % calculating relative error at xi
         
-        fprintf('%3i      %11.16f       %11.16f      %11.16f  %11.16f\n', i, xi, xEst, iTol, tol);
+        fprintf('%3i      %25.16f       %10.16f      %11.16f  %11.16f\n', i, xi, xEst, iTol, tol);
         
         if iTol < tol
             xSol = xi; % if we are below tolerance, then we are DONE!
