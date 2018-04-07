@@ -4,6 +4,7 @@
 % an estimate of the irration Pi. 
 
 % First
+close all % close all figures
 clear all; % clear all variables in the base workspace so the script doesn't borrow  from it. 
 clc; % clear command window for clarity. 
 
@@ -20,22 +21,29 @@ end
 
 % Step 2: generate the n random x-coordinates on (-1,1) and the
 % n random y coordinates on (-1, 1)
-xs = rand(1, n) * (1 - - 1) - 1;
-ys = rand(1, n) * (1 - - 1) - 1;
+xs = rand(1, n) * (1 + 1) - 1;
+ys = rand(1, n) * (1 + 1) - 1;
 
 
 % Step 3: determine the number (c) for which x^2 + y^2 <= 1
 % (meaning, the number of coordinates that lie inside or on
 % the unit circle at the origin)
-c = 0;
 
-for ii = 1:n
-    % for each coordinate pair that lies on or inside
-    % the circle, increment the count. 
-    if xs(ii)^2 + ys(ii)^2 <= 1
-        c = c + 1;
-    end
-end
+iis = 1:n;
+circlePoints = xs(iis) .^ 2 + ys(iis) .^ 2;
+% finding the count of points that are on or inside the  circle
+c = sum(circlePoints <= 1);
+
+
+% NOTE; this is how to do it with a for-loop but it was too inefficient so I used
+% the vectorized version above. 
+%for ii = 1:n
+%    % for each coordinate pair that lies on or inside
+%    % the circle, increment the count. 
+%    if xs(ii)^2 + ys(ii)^2 <= 1
+%        c = c + 1;
+%    end
+%end
 
 
 % Step 4: now estimate Pi by multiplying c/n by area of square (4)
@@ -101,4 +109,4 @@ plot(xsOutside, ysOutside, 'b.') % plot outside dots as blue dots.
 xlabel('x')
 ylabel('y')
 title('The Monte Carlo Estimate of Pi')
-%legend('inside points', 'outside points')
+
