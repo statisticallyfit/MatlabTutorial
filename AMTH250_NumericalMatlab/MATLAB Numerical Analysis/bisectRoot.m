@@ -1,59 +1,60 @@
 
-% Gilat book, page 81
+% Gilat book, page 81 + mix of lecture notes (lec 10)
 
-% tests: fx = x^3 + x - 1   [0,1]
+% tests: 
+% fx = x^3 + x - 1   [0,1]
 % fx = 8 - 4.5 * (x - sin(x))   [2,3]
+% @(x)exp(x)+x.^4+x-2        
+%       bisectRoot(f, 0, 1, 5*10^(-7), 30)
 
-function xSol = bisectRoot (f, a, b, tol, maxIterations)
+function xSol = bisectRoot (f, a, b, pCorrect)
 
-    fa = f(a);
-    fb = f(b);
+    xL = a; 
+    xR = b; 
     
-    if fa*fb > 0
-        disp('Error: The function has the same sign at points a and b.');
-    else
-        disp('iteration   a          b     (est) Solution   f(est)    Tolerance');
+    fa = f(a);
+    %fb = f(b);
+    
+    % if you use while (iTol > tol) then it may never stop
+    % since iTol may never get <= tol). 
+    
+    % Calculating num steps
+    nMax = round(log(abs(b - a) * 2 * 10^pCorrect) / log(2)); 
+    
+    estimatedRoots = zeros(1, nMax);
+    
+    for i = 1: nMax
+        xNew = (a + b)/2; 
+        estimatedRoots(i) = xNew; 
         
-        
-        for i = 1: maxIterations
-            xEst = (a + b)/2; 
-            iTol = (b- a)/2; 
-            fEst = f(xEst);
-            
-            fprintf('%3i  %11.6f %11.6f % 11.6f %11.6f %11.6f\n', i,a,b,xEst, fEst, iTol);
-            
-            % breaking if final perfect solution is found. 
-            if fEst == 0
-                fprintf('\nAn exact solution x = %11.6f was found', xEst)
-                break
-            end
-            
-            % breaking if tolerance is satisfied
-            if iTol < tol % an approximate solution was found
-                break
-            end
-            
-            % breaking after maxiterations over
-            if i == maxIterations
-                fprintf('Solution was not obtained in %i iterations', maxIterations);
-                break
-            end
-            
-            % no break - continuiing the algorithm. 
-            if fa*fEst < 0
-                b = xEst; % new interval is [a, estimate]
-            else
-                a = xEst; % new interval [estimate, b]
-            end
-            
-           
+        fNew = f(xNew);
+        iTol = (abs(b - a)) / 2;
+
+        fprintf('%3i  %11.6f %11.6f % 11.6f %11.6f %11.6f\n', i,a,b,xNew, fNew, iTol);
+
+        % no break - continuiing the algorithm. 
+        if fa*fNew > 0
+            a = xNew; % new interval is [estimate, b]
+        else
+            b = xNew; % new interval [a, estimate]
         end
         
-        % when interval width is less than tolerance, we have this
-        % approximate or exact solution (or algo could fail to converge)
-        xSol = xEst;
+        
+        % breaking if tolerance is satisfied 
+        %if iTol < tol % an approximate solution was found
+        %    break;
+        %end
         
     end
+        
+    xSol = xNew;
+    
+    
+    
+    % Plotting
+    plotRoot(f, xSol, xL, xR)
+    plotConvergence([estimatedRoots, xSol], nMax)
+    
 end
 
 %%% STOP

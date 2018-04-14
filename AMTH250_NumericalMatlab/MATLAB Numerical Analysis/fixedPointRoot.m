@@ -21,27 +21,35 @@
 
 % g = iteration function (must be Lipshutz continuous if the fixed
 % point method is to converge). 
-% a, b = interval around the real root
-% tol = max error
-% maxIterations = max number of iterations before a solution is found. 
+% x0 = value close to real root ,given by the user. 
+% pCorrect = number of decimals (p) that solution should have correct. 
 % xSol = final solution
-function xSol = fixedPointRoot(g, x0, tol, maxIterations)
+% p = number of decimals correct, equivalent to log formula except here
+% we have interval only at each step so we must calc numerically. 
+function xSol = fixedPointRoot(g, x0, p, nMax)
 
-    x = zeros(maxIterations + 1, 1); 
+    % calculated number of iterations
+    %nMax = log(abs
+    
+    x = zeros(nMax + 1, 1); 
     
     x(1) = x0; % initial vector
     
-    for i = 1:maxIterations
+    for i = 1:nMax
     
         x(i+1) = g(x(i)); 
-       
+        
+        if abs(x(n+1) - x(n)) < 0.5 * 10^(-p)
+            break
+        end
     end
     
-    if i == maxIterations
-        fprintf('Solution not obtained in %i iterations.\n', maxIterations)
-        xSol = ('No Answer');
-    else
-        xSol = x(i+1);
-    end
+    xSol = x(i+1);
+    
+    
+    
+    % Plotting Convergence
+    plotConvergence(x, nMax)
+    
     
 end
