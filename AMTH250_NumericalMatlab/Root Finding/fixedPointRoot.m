@@ -26,30 +26,30 @@
 % xSol = final solution
 % p = number of decimals correct, equivalent to log formula except here
 % we have interval only at each step so we must calc numerically. 
-function xSol = fixedPointRoot(g, x0, p, nMax)
+function xSol = fixedPointRoot(g, x0, p)
 
     % calculated number of iterations
-    %nMax = log(abs
+    nMax = round(log(2 * 10^p) / log(2));
     
     x = zeros(nMax + 1, 1); 
     
     x(1) = x0; % initial vector
     
-    for i = 1:nMax
+    for n = 1:nMax
     
-        x(i+1) = g(x(i)); 
+        x(n+1) = g(x(n)); 
         
         if abs(x(n+1) - x(n)) < 0.5 * 10^(-p)
             break
         end
     end
     
-    xSol = x(i+1);
-    
+    xSol = x(n+1);
+    fprintf('n = %d, nMax = %d, solution = %.30f\n', n, nMax, xSol)
     
     
     % Plotting Convergence
     plotConvergence(x, nMax)
-    
+    %plotCobweb(g, x0, xSol, p)
     
 end

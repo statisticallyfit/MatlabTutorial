@@ -1,4 +1,3 @@
-
 % Gilat book, page 81 + mix of lecture notes (lec 10)
 
 % tests: 
@@ -7,7 +6,7 @@
 % @(x)exp(x)+x.^4+x-2        
 %       bisectRoot(f, 0, 1, 5*10^(-7), 30)
 
-function xSol = bisectRoot (f, a, b, pCorrect)
+function xSol = bisectRoot (f, a, b, p)
 
     xL = a; 
     xR = b; 
@@ -19,18 +18,16 @@ function xSol = bisectRoot (f, a, b, pCorrect)
     % since iTol may never get <= tol). 
     
     % Calculating num steps
-    nMax = round(log(abs(b - a) * 2 * 10^pCorrect) / log(2)); 
+    nMax = ceil(log(abs(b - a) * 2 * 10^p) / log(2)); 
     
-    estimatedRoots = zeros(1, nMax);
-    
-    for i = 1: nMax
+    for n = 1: nMax
         xNew = (a + b)/2; 
-        estimatedRoots(i) = xNew; 
+        estimatedRoots(n) = xNew; 
         
         fNew = f(xNew);
         iTol = (abs(b - a)) / 2;
 
-        fprintf('%3i  %11.6f %11.6f % 11.6f %11.6f %11.6f\n', i,a,b,xNew, fNew, iTol);
+        fprintf('%3i  %11.6f %11.6f % 11.6f %11.6f %11.6f\n', n,a,b,xNew, fNew, iTol);
 
         % no break - continuiing the algorithm. 
         if fa*fNew > 0
@@ -39,7 +36,9 @@ function xSol = bisectRoot (f, a, b, pCorrect)
             b = xNew; % new interval [a, estimate]
         end
         
-        
+        if abs(b - a) < 0.5 * 10^(-p)
+            break;
+        end
         % breaking if tolerance is satisfied 
         %if iTol < tol % an approximate solution was found
         %    break;
@@ -48,12 +47,12 @@ function xSol = bisectRoot (f, a, b, pCorrect)
     end
         
     xSol = xNew;
-    
+    fprintf('n = %d, nMax = %d, solution = %.30f\n', n, nMax, xSol)
     
     
     % Plotting
-    plotRoot(f, xSol, xL, xR)
-    plotConvergence([estimatedRoots, xSol], nMax)
+    %plotRoot(f, xSol, xL, xR)
+    %plotConvergence([estimatedRoots, xSol], nMax)
     
 end
 
