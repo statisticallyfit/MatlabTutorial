@@ -10,35 +10,28 @@
 
 % f = function
 % a, b = two points inside which the root lies. (any interval of the root)
-% tol = tolerance
-% maxIterations
+% p = num correct decimals (num 0s in front)
 % xSol = solution
-function xSol = secantRoot(f, a, b, tol, maxIterations)
-    fprintf('\niteration     xi (next, or final sol)       xb (estimate)                itol               tol\n');
+function xSol = secantRoot(f, a, b, p)
+    %fprintf('\niteration     xi (next, or final sol)       xb (estimate)                itol               tol\n');
     
-    for i = 1: maxIterations
-        fb = f(b);
+    nMax = 50;
+    xSol = 'No Answer'; 
+    
+    x(1) = a;
+    x(2) = b; 
+    
+    for n = 2: nMax
         
-        xi = b - fb * (a - b) / (f(a) - fb);
+        x(n+1) = x(n) - f(x(n)) / ( (f(x(n)) - f(x(n-1))) / (x(n) - x(n-1)) );
         
-        iTol = abs((xi - b)/b); % calculating relative error at xi
-        
-        fprintf('%3i      %25.16f       %10.16f      %11.16f  %11.16f\n', i, xi, b, iTol, tol);
-        
-        if iTol < tol
-            xSol = xi; % if we are below tolerance, then we are DONE!
+        if abs(x(n+1) - x(n)) < 0.5*10^(-p)
+            xSol = x(n+1); % if we are below tolerance, then we are DONE!
             break
         end
-        
-        % else we continue 
-        a = b;
-        b = xi; 
     end
     
-    if i == maxIterations
-        fprintf('Solution not obtained in %i iterations.\n', maxIterations)
-        xSol = ('No Answer');
-    end
+    fprintf('n = %d, solution = %.*f\n', n-1, (p+1), x(n+1))
     
 end
 

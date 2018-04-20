@@ -1,12 +1,12 @@
 
-function plotConvergence(xVec, nMax)
+function plotConvergence(xVec)
 
-    figure(2); clf; hold on;
+    close all; figure(2); clf; hold on; grid on; grid minor
     
     % plotting iterations against x. 
-    plot(0:nMax, xVec, 'r-o', 'LineWidth', 2);
+    plot(1:length(xVec), xVec, 'r-o', 'LineWidth', 2);
     xlabel('n (iteration number)');
     ylabel('x_n');
-    grid on; grid minor
+    title(['Convergence of Root Finding'])
     
 end

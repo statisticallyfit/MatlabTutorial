@@ -12,48 +12,42 @@ function xSol = bisectRoot (f, a, b, p)
     xL = a; 
     xR = b; 
     
-    fa = f(a);
-    %fb = f(b);
-    
-    % if you use while (iTol > tol) then it may never stop
-    % since iTol may never get <= tol). 
-    
     % Calculating num steps
-    nMax = ceil(log(abs(b - a) * 2 * 10^p) / log(2)); 
+    nMax = ceil(log(abs(b - a) * 2 * 10^p) / log(2));
     
+    % starting
+    xSol = 'No Answer'; 
+    fa = f(a);
     estimatedRoots = zeros(1, nMax);
+    xNew = 0;
     
     for n = 1: nMax
         xNew = (a + b)/2; 
+        fNew = f(xNew);
+        
         estimatedRoots(n) = xNew; 
         
-        fNew = f(xNew);
-        iTol = (abs(b - a)) / 2;
-
-        fprintf('%3i  %11.6f %11.6f % 11.6f %11.6f %11.6f\n', n,a,b,xNew, fNew, iTol);
-
-        % no break - continuiing the algorithm. 
         if fa*fNew > 0
             a = xNew; % new interval is [estimate, b]
+            fa = fNew;
         else
             b = xNew; % new interval [a, estimate]
         end
         
-        
-        % breaking if tolerance is satisfied 
-        %if iTol < tol % an approximate solution was found
-        %    break;
-        %end
+        % no real need since already have nmax prepared
+        if abs(b - a) <= 0.5*10^(-p)
+            xSol = xNew;
+            break;
+        end
         
     end
         
-    xSol = xNew;
-    fprintf('n = %d, nMax = %d, solution = %.30f\n', n, nMax, xSol)
+    fprintf('n = %d, nMax = %d, solution = %.*f\n', n, nMax, (p+1), xNew)
     
     
     % Plotting
-    plotRoot(f, xSol, xL, xR)
-    plotConvergence([estimatedRoots, xSol], nMax)
+    plotRoot(f, xL, xR)
+    plotConvergence([estimatedRoots, xNew])
     
 end
 

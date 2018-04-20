@@ -28,28 +28,37 @@
 % we have interval only at each step so we must calc numerically. 
 function [xSol, x] = fixedPointRoot(g, x0, p)
 
-    % calculated number of iterations
-    nMax = round(log(2 * 10^p) / log(2));
-    
-    x = zeros(1, nMax + 1); 
+    xSol = 'No Answer';
+    nMax = 100; % in case of no convergence
     
     x(1) = x0; % initial vector
     
     for n = 1:nMax
     
-        x(n+1) = g(x(n)); 
-        
+        x(n+1) = g(x(n)); % at end: 51 elements in x if goes until nmax
+    
         if abs(x(n+1) - x(n)) < 0.5 * 10^(-p)
+            xSol = x(n+1);
             break
         end
     end
     
-    xSol = x(n+1);
-    fprintf('n = %d, nMax = %d, solution = %.30f\n', n, nMax, xSol)
-    
     
     % Plotting Convergence
-    plotConvergence(x, nMax)
-    plotCobweb(g, x)
+    
+    % cleaning up so that clean ones have no Nans or Infs in case of
+    % nonconvergences. 
+    if any(isnan(x)) || any(isinf(x))
+    %    dNans = diff(isnan(x));
+    %    dInfs = diff(isinf(x));
+    %    lowestIndexOfTrouble = min([find(dNans == 1), find(dInfs == 1)]);
+    %    x = x(1:lowestIndexOfTrouble);
+        
+        return % do not try to plot instead use cobweb args individually
+    end    
+
+    plotConvergence(x);
+    plotCobweb(g, x);
+    
     
 end
