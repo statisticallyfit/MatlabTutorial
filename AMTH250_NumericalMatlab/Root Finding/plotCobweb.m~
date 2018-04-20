@@ -5,11 +5,11 @@
 % g = lipshutz function
 % nMax = max iterations
 % p = number of correct decimals
-function plotCobweb(g, x)
+function plotCobweb(g, x, p)
     
     % Max number of iteration steps (so that solution is within p decimal
     % places)
-    %nMax = round(log(2 * 10^p) / log(2));
+    nMax = round(log(2 * 10^p) / log(2));
     x0 = x(1);
     %xSol = xVec(nMax + 1);
     
@@ -45,14 +45,13 @@ function plotCobweb(g, x)
     
     
     % Plotting the cobweb part
-   % xx = zeros(nMax + 1, 1); 
-    %xx(1) = x0; % initial vector
+    xx = zeros(nMax + 1, 1); 
+    xx(1) = x0; % initial vector
     
     
     % NOTE: we could just use xVec instead of generating the same one in
     % xVecNew all over again, but it is useful to see the process. 
-    
-    for n = 1:length(x) % length(x) is nmax, where last elem is correct to p decimals
+    for n = 1:nMax
     
         %xx(n+1) = g(xx(n)); 
         
@@ -61,12 +60,14 @@ function plotCobweb(g, x)
         plot([x(n) x(n+1)], [x(n+1) x(n+1)], 'k--', 'LineWidth', 1.5)
         pause(0.1)
         
-        %if abs(x(n+1) - x(n)) < 0.5 * 10^(-p)
-        %    break
-        %end
+        if abs(x(n+1) - x(n)) < 0.5 * 10^(-p)
+            break
+        end
        
     end
     
-    fprintf('n = %d, solution = %.30f\n', n, x(n+1))
+    
+    
+    fprintf('n = %d, nMax = %d, solution = %.30f\n', n, nMax, x(n+1))
     
 end
