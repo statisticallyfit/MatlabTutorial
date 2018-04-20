@@ -49,7 +49,7 @@ function [xSol, x] = fixedPointRoot(g, x0, p)
     
     
     % Plotting Convergence
-    %plotConvergence(x, nMax)
-    %plotCobweb(g, x, p)
+    plotConvergence(x, nMax)
+    plotCobweb(g, x)
     
 end
