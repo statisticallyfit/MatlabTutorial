@@ -7,13 +7,14 @@
 % @(x)exp(x)+x.^4+x-2        
 %       bisectRoot(f, 0, 1, 5*10^(-7), 30)
 
-function xSol = bisectP(f, a, b, p)
+function [xSol, allXs] = bisectP(f, a, b, p)
 
     xL = a; 
     xR = b; 
     
     % Calculating num steps
     nMax = ceil(log( (abs(b - a)) * 2 * 10^p) / log(2));
+    isConverged = false;
     
     % starting
     xSol = 'No Answer'; 
@@ -37,19 +38,20 @@ function xSol = bisectP(f, a, b, p)
         % no real need since already have nmax prepared
         if abs(b - a) <= 0.5*10^(-p)
             xSol = xNew;
+            isConverged = true;
             break;
         end
         
     end
         
-    fprintf('n = %d, nMax = %d, solution = %.*f\n', n, nMax, (p+1), xNew)
+    fprintf('n = %d, nMax = %d, solution = %.*f\n', n, nMax, (p), xNew)
     
     
     % Plotting Convergence
-    if all(~isnan(allXs)) && all(~isinf(allXs))
-        plotConvergence(allXs);
+    plotConvergence(allXs);
+    if isConverged
         plotRoot(f, xL, xR);
-    end   
+    end  
     
 end
 

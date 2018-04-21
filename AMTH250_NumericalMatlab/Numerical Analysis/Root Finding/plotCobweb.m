@@ -13,23 +13,20 @@ function plotCobweb(g, x)
     gs = g(xs);
     %gs = g(xs); % note g must be vectorized. 
     
-    close all;
-    figure(3); clf; hold on
+   % close all;
+    figure(1); clf; hold on; grid on; grid minor
     
     % showing where they intersect
     plot(xs, gs, 'b', 'LineWidth', 2) % plot the y = g(x) function
     plot(xs, xs, 'r--', 'LineWidth', 2) % plot  the y = x function
     
     % plotting y and x-axes
-    
     xmin = min([xs, gs]) - 0.05;
     xmax = max([xs, gs]) + 0.05;
     ymin = min([gs xs]) - 0.05;
     ymax = max([gs xs]) + 0.05;
     plot([0 0], [ymin ymax], 'k-', 'LineWidth', 3)
     plot([xmin xmax], [0 0], 'k-', 'LineWidth', 3)
-    
-    grid on; grid minor
     
     xlabel('x')
     ylabel('g(x) and x-line')

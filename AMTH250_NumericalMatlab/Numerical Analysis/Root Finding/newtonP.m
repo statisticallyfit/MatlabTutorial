@@ -17,7 +17,7 @@
 % nMax = max iterations
 % p = num correct decimals
 % xSol = solution
-function xSol = newtonP(f, fDeriv, x0, p)
+function [xSol, x] = newtonP(f, fDeriv, x0, p)
 
     xSol = 'No Answer'; % initialize
     
@@ -39,25 +39,13 @@ function xSol = newtonP(f, fDeriv, x0, p)
         end
     end
     
-    fprintf('n = %d, nMax = %d, solution = %.*f\n', n, nMax, (p+1), x(n+1))
+    fprintf('n = %d, nMax = %d, solution = %.*f\n', n, nMax, (p), x(n+1))
     
     % Plotting Convergence
     plotConvergence(x);
-    
     %if isConverged
-        %d = abs(xSol - x0);
-        %isSmall = ceil(d) == 0 || ceil(d) == 1 || ceil(d) == 2;
-        
-        %if isSmall
-        %    low = min([x0, xSol]) - 5*d;
-        %    upp = max([x0, xSol]) + 5*d;
-        %else
-        %    low = min([x0, xSol]) - 2*d;
-        %    upp = max([x0, xSol]) + 5*d;
-        %end
-        
-        %plotRoot(f, low, upp);
-    %end   
+    %    plotRoot(f, min(x), max(x))
+    %end
     
 end
 

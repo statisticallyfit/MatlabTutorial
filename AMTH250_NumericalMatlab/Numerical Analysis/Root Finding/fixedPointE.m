@@ -1,7 +1,7 @@
 function [xSol, x] = fixedPointE(g, x0)
 
     xSol = 'No Answer';
-    nMax = 100;
+    nMax = 300;
     %nMax = ceil(log( (abs(b - a)/b) * 2^52) / log(2));
     
     x(1) = x0; % initial vector
@@ -20,9 +20,7 @@ function [xSol, x] = fixedPointE(g, x0)
     
     
     % Plotting Convergence
-    if all(~isnan(x)) && all(~isinf(x)) 
-        plotConvergence(x);
-        plotCobweb(g, x);
-    end  
+    plotConvergence(x);
+    plotCobweb(g, x); 
     
 end

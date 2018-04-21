@@ -1,10 +1,10 @@
-function xSol = newtonE(f, fDeriv, x0)
+function [xSol, x] = newtonE(f, fDeriv, x0)
 
     xSol = 'No Answer'; % initialize
     
     x(1) = x0; 
     isConverged = false;
-    nMax = ceil(log( (abs(b - a)/b) * 2^52) / log(2));
+    nMax = 100;
      
     for n = 1: nMax
         x(n+1) = x(n) - f(x(n)) / fDeriv(x(n));
@@ -22,13 +22,8 @@ function xSol = newtonE(f, fDeriv, x0)
     
     % Plotting Convergence
     plotConvergence(x);
-    
-    if isConverged
-        d = abs(xSol - x0);
-        low = min([x0, xSol]) - d;
-        upp = max([x0, xSol]) - d;
-        
-        plotRoot(f, low, upp);
-    end  
+    %if isConverged
+    %    plotRoot(f, x0, xSol)
+    %end
     
 end

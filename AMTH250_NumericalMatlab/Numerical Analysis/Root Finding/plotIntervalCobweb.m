@@ -1,10 +1,11 @@
-function plotCobwebInterval(g, xL, xR, x0)
+function plotIntervalCobweb(g, xL, xR, x0)
         
     xs = linspace(xL, xR,1000);
     strG = func2str(g);
     gs = g(xs);
 
-    close all; figure(1); clf;
+    %close all;
+    figure(2); clf;
     hold on; grid on; grid minor
     plot(xs, xs, 'r--', 'LineWidth',2);
     plot(xs, gs, 'b-', 'LineWidth',2);

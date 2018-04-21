@@ -44,13 +44,11 @@ function [xSol, x] = fixedPointP(g, x0, p)
         end
     end
     
-    fprintf('n = %d, nMax = %d, solution = %.*f\n', n, nMax, (p+1), x(n+1))
+    fprintf('n = %d, nMax = %d, solution = %.*f\n', n, nMax, (p), x(n+1))
     
     
     % Plotting Convergence
-    if all(~isnan(x)) && all(~isinf(x)) 
-        plotConvergence(x);
-        plotCobweb(g, x);
-    end    
+    plotConvergence(x);
+    plotCobweb(g, x);   
 
 end

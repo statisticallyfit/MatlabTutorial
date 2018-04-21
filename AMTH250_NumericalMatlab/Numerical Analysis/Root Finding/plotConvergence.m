@@ -1,7 +1,7 @@
 
 function plotConvergence(xVec)
 
-    close all; figure(2); clf; hold on; grid on; grid minor
+    figure(3); clf; hold on; grid on; grid minor
     
     % plotting iterations against x. 
     plot(1:length(xVec), xVec, 'r-o', 'LineWidth', 2);

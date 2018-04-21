@@ -1,4 +1,4 @@
-function xSol = bisectE(f, a, b) % bisection to eps precision
+function [xSol, allXs] = bisectE(f, a, b) % bisection to eps precision
 
     xL = a; 
     xR = b; 
@@ -6,6 +6,7 @@ function xSol = bisectE(f, a, b) % bisection to eps precision
     % Calculating num steps required to find solution with
     % RELATIVE ERROR less than e_machine = 2^-52 given interval. 
     nMax = ceil(log( (abs(b - a)/b) * 2^52) / log(2));
+    isConverged = false;
     
     % starting
     xSol = 'No Answer'; 
@@ -29,6 +30,7 @@ function xSol = bisectE(f, a, b) % bisection to eps precision
         % no real need since already have nmax prepared
         if abs(b - a) <= eps*abs(b) % relative error
             xSol = xNew;
+            isConverged = true;
             break;
         end
         
@@ -38,8 +40,8 @@ function xSol = bisectE(f, a, b) % bisection to eps precision
     
     
     % Plotting Convergence
-    if all(~isnan(allXs)) && all(~isinf(allXs))
-        plotConvergence(allXs);
+    plotConvergence(allXs);
+    if isConverged
         plotRoot(f, xL, xR);
     end  
     

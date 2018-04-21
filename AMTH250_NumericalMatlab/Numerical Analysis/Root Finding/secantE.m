@@ -1,4 +1,4 @@
-function xSol = secantE(f, a, b)
+function [xSol, x] = secantE(f, a, b)
 
     nMax = ceil(log( (abs(b - a)/b) * 2^52) / log(2));
     xSol = 'No Answer'; 
@@ -19,8 +19,6 @@ function xSol = secantE(f, a, b)
     fprintf('n = %d, nMax = %d, solution = %.15f\n', n-1, nMax, x(n+1))
     
     % Plotting Convergence
-    if all(~isnan(x)) && all(~isinf(x)) 
-        plotConvergence(x);
-        plotCobweb(g, x);
-    end  
+    plotConvergence(x);
+    plotRoot(f, min(x), max(x));
 end
