@@ -40,7 +40,7 @@ function xSol = bisectE(f, a, b) % bisection to eps precision
     % Plotting Convergence
     if all(~isnan(allXs)) && all(~isinf(allXs))
         plotConvergence(allXs);
-        plotCobweb(g, allXs);
+        plotRoot(f, xL, xR);
     end  
     
 end

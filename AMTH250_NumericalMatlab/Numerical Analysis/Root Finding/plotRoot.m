@@ -3,8 +3,11 @@
 % bInitial = initial upper part of interval
 % xSol = x root we want to plot
 
-function plotRoot(f, a, b)
+function plotRoot(f, xL, xR)
     %%% Generating data for the curve
+    a = min([xL, xR]);
+    b = max([xL, xR]);
+    
     xSol = fzero(f, (a + b)/2);
     xp = linspace(a, b, 1000);
     fp = f(xp); 

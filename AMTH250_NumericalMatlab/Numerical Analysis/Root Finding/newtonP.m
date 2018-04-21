@@ -23,7 +23,9 @@ function xSol = newtonP(f, fDeriv, x0, p)
     
     x(1) = x0; 
     
-    nMax = ceil(log(abs(b - a) * 2 * 10^p) / log(2));
+    %nMax = ceil(log(abs(b - a) * 2 * 10^p) / log(2));
+    nMax = 100;
+    isConverged = false;
      
     for n = 1: nMax
         x(n+1) = x(n) - f(x(n)) / fDeriv(x(n));
@@ -32,6 +34,7 @@ function xSol = newtonP(f, fDeriv, x0, p)
         % so 0.5*10(-p) = 5*10(-p-1)
         if abs(x(n+1) - x(n)) < 0.5*10^(-p)
             xSol = x(n+1); % if we are below tolerance, then we are DONE!
+            isConverged = true;
             break
         end
     end
@@ -39,10 +42,22 @@ function xSol = newtonP(f, fDeriv, x0, p)
     fprintf('n = %d, nMax = %d, solution = %.*f\n', n, nMax, (p+1), x(n+1))
     
     % Plotting Convergence
-    if all(~isnan(x)) && all(~isinf(x)) 
-        plotConvergence(x);
-        plotCobweb(g, x);
-    end  
+    plotConvergence(x);
+    
+    %if isConverged
+        %d = abs(xSol - x0);
+        %isSmall = ceil(d) == 0 || ceil(d) == 1 || ceil(d) == 2;
+        
+        %if isSmall
+        %    low = min([x0, xSol]) - 5*d;
+        %    upp = max([x0, xSol]) + 5*d;
+        %else
+        %    low = min([x0, xSol]) - 2*d;
+        %    upp = max([x0, xSol]) + 5*d;
+        %end
+        
+        %plotRoot(f, low, upp);
+    %end   
     
 end
 

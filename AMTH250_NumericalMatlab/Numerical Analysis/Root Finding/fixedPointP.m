@@ -29,7 +29,8 @@
 function [xSol, x] = fixedPointP(g, x0, p)
 
     xSol = 'No Answer';
-    nMax = ceil(log( (abs(b - a)) * 2 * 10^p) / log(2));
+    nMax = 100;
+    %nMax = ceil(log( (abs(b - a)) * 2 * 10^p) / log(2));
     
     x(1) = x0; % initial vector
     

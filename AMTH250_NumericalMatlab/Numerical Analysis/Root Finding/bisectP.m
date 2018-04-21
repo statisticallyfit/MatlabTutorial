@@ -48,7 +48,7 @@ function xSol = bisectP(f, a, b, p)
     % Plotting Convergence
     if all(~isnan(allXs)) && all(~isinf(allXs))
         plotConvergence(allXs);
-        plotCobweb(g, allXs);
+        plotRoot(f, xL, xR);
     end   
     
 end
