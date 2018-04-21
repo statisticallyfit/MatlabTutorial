@@ -1,5 +1,7 @@
 function [xSol, x] = secantE(f, a, b)
 
+% NOTE: this nmax bound is only working for bisection not for secant method
+% but just putting it here for comparison sake. 
     nMax = ceil(log( (abs(b - a)/b) * 2^52) / log(2));
     xSol = 'No Answer'; 
     

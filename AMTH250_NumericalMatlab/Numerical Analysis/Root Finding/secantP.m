@@ -14,6 +14,8 @@
 % xSol = solution
 function [xSol, x] = secantP(f, a, b, p)
     
+% NOTE: this nmax bound is only working for bisection not for secant method
+% but just putting it here for comparison sake. 
     nMax = ceil(log( (abs(b - a)) * 2 * 10^p) / log(2));
     xSol = 'No Answer'; 
     

@@ -3,7 +3,6 @@ function [xSol, x] = newtonE(f, fDeriv, x0)
     xSol = 'No Answer'; % initialize
     
     x(1) = x0; 
-    isConverged = false;
     nMax = 100;
      
     for n = 1: nMax
@@ -13,7 +12,6 @@ function [xSol, x] = newtonE(f, fDeriv, x0)
         % so 0.5*10(-p) = 5*10(-p-1)
         if abs(x(n+1) - x(n)) <= eps * abs(x(n+1))
             xSol = x(n+1); % if we are below tolerance, then we are DONE!
-            isConverged = true;
             break
         end
     end

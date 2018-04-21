@@ -25,7 +25,6 @@ function [xSol, x] = newtonP(f, fDeriv, x0, p)
     
     %nMax = ceil(log(abs(b - a) * 2 * 10^p) / log(2));
     nMax = 100;
-    isConverged = false;
      
     for n = 1: nMax
         x(n+1) = x(n) - f(x(n)) / fDeriv(x(n));
@@ -34,7 +33,6 @@ function [xSol, x] = newtonP(f, fDeriv, x0, p)
         % so 0.5*10(-p) = 5*10(-p-1)
         if abs(x(n+1) - x(n)) < 0.5*10^(-p)
             xSol = x(n+1); % if we are below tolerance, then we are DONE!
-            isConverged = true;
             break
         end
     end

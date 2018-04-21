@@ -1,8 +1,8 @@
-
 % x = all xs from iterations
-function plotLogError(x)
-    xEst = x(end);
-    absError = abs(xEst - x);
+% xSol = real x solution we give ourselves so that we can get more accurate
+% plot. 
+function plotLogErrorWithSolution(x, xSol)
+    absError = abs(xSol - x);
     logError = log(absError);
     
     figure(5); clf; hold on; grid on; grid minor
