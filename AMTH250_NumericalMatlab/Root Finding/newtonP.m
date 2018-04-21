@@ -17,13 +17,14 @@
 % nMax = max iterations
 % p = num correct decimals
 % xSol = solution
-function xSol = newtonRoot(f, fDeriv, x0, p)
+function xSol = newtonP(f, fDeriv, x0, p)
 
     xSol = 'No Answer'; % initialize
     
     x(1) = x0; 
     
-    nMax = 100;
+    nMax = ceil(log(abs(b - a) * 2 * 10^p) / log(2));
+     
     for n = 1: nMax
         x(n+1) = x(n) - f(x(n)) / fDeriv(x(n));
         
@@ -35,7 +36,13 @@ function xSol = newtonRoot(f, fDeriv, x0, p)
         end
     end
     
-    fprintf('n = %d, solution = %.*f\n', n, (p+1), x(n+1))
+    fprintf('n = %d, nMax = %d, solution = %.*f\n', n, nMax, (p+1), x(n+1))
+    
+    % Plotting Convergence
+    if all(~isnan(x)) && all(~isinf(x)) 
+        plotConvergence(x);
+        plotCobweb(g, x);
+    end  
     
 end
 

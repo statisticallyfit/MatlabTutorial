@@ -12,10 +12,9 @@
 % a, b = two points inside which the root lies. (any interval of the root)
 % p = num correct decimals (num 0s in front)
 % xSol = solution
-function xSol = secantRoot(f, a, b, p)
-    %fprintf('\niteration     xi (next, or final sol)       xb (estimate)                itol               tol\n');
+function xSol = secantP(f, a, b, p)
     
-    nMax = 50;
+    nMax = ceil(log( (abs(b - a)) * 2 * 10^p) / log(2));
     xSol = 'No Answer'; 
     
     x(1) = a;
@@ -31,8 +30,13 @@ function xSol = secantRoot(f, a, b, p)
         end
     end
     
-    fprintf('n = %d, solution = %.*f\n', n-1, (p+1), x(n+1))
+    fprintf('n = %d, nMax = %d, solution = %.*f\n', n-1, nMax, (p+1), x(n+1))
     
+    % Plotting Convergence
+    if all(~isnan(x)) && all(~isinf(x)) 
+        plotConvergence(x);
+        plotCobweb(g, x);
+    end  
 end
 
 

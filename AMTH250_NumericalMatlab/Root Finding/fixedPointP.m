@@ -26,10 +26,10 @@
 % xSol = final solution
 % p = number of decimals correct, equivalent to log formula except here
 % we have interval only at each step so we must calc numerically. 
-function [xSol, x] = fixedPointRoot(g, x0, p)
+function [xSol, x] = fixedPointP(g, x0, p)
 
     xSol = 'No Answer';
-    nMax = 100; % in case of no convergence
+    nMax = ceil(log( (abs(b - a)) * 2 * 10^p) / log(2));
     
     x(1) = x0; % initial vector
     
@@ -43,22 +43,13 @@ function [xSol, x] = fixedPointRoot(g, x0, p)
         end
     end
     
+    fprintf('n = %d, nMax = %d, solution = %.*f\n', n, nMax, (p+1), x(n+1))
+    
     
     % Plotting Convergence
-    
-    % cleaning up so that clean ones have no Nans or Infs in case of
-    % nonconvergences. 
-    if any(isnan(x)) || any(isinf(x))
-    %    dNans = diff(isnan(x));
-    %    dInfs = diff(isinf(x));
-    %    lowestIndexOfTrouble = min([find(dNans == 1), find(dInfs == 1)]);
-    %    x = x(1:lowestIndexOfTrouble);
-        
-        return % do not try to plot instead use cobweb args individually
+    if all(~isnan(x)) && all(~isinf(x)) 
+        plotConvergence(x);
+        plotCobweb(g, x);
     end    
 
-    plotConvergence(x);
-    plotCobweb(g, x);
-    
-    
 end

@@ -1,4 +1,4 @@
-function xSol = bisectEpsRoot (f, a, b) % bisection to eps precision
+function xSol = bisectE(f, a, b) % bisection to eps precision
 
     xL = a; 
     xR = b; 
@@ -10,14 +10,14 @@ function xSol = bisectEpsRoot (f, a, b) % bisection to eps precision
     % starting
     xSol = 'No Answer'; 
     fa = f(a);
-    estimatedRoots = zeros(1, nMax);
+    allXs = zeros(1, nMax);
     xNew = 0;
     
     for n = 1: nMax
         xNew = (a + b)/2; 
         fNew = f(xNew);
         
-        estimatedRoots(n) = xNew; 
+        allXs(n) = xNew; 
         
         if fa*fNew > 0
             a = xNew; % new interval is [estimate, b]
@@ -37,8 +37,10 @@ function xSol = bisectEpsRoot (f, a, b) % bisection to eps precision
     fprintf('n = %d, nMax = %d, solution = %.15f\n', n, nMax, xNew)
     
     
-    % Plotting
-    plotRoot(f, xL, xR);
-    plotConvergence([estimatedRoots, xNew]);
+    % Plotting Convergence
+    if all(~isnan(allXs)) && all(~isinf(allXs))
+        plotConvergence(allXs);
+        plotCobweb(g, allXs);
+    end  
     
 end
