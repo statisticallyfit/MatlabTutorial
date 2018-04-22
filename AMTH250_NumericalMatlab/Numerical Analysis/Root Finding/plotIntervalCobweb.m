@@ -22,12 +22,15 @@ function plotIntervalCobweb(g, xL, xR, x0)
 
     for n = 1:nmax
         x(n+1) = g(x(n));
-        %fprintf('x(n) = %.6f\n', x(n))
+        
         plot([x(n) x(n)], [x(n) x(n+1)], 'k', 'LineWidth', 2)
-        pause(0.1)
+        text(x(n)+0.1, x(n+1)+0.1, ['(', num2str(x(n)), ', ', num2str(x(n+1)), ')'])
+        fprintf('x(n) = %.5f, x(n+1) = %.5f\n', x(n), x(n+1))
+        pause(2)
 
         plot([x(n) x(n+1)], [x(n+1) x(n+1)],'k--', 'LineWidth', 2)
-        pause(0.1)
+        %fprintf('x(n) = %.5f, x(n+1) = %.5f\n', x(n), x(n+1))
+        pause(2)
         
         axis equal
         axis([xL xR xL xR])

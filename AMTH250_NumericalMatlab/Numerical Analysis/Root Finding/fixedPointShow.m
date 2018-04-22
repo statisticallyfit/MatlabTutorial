@@ -4,8 +4,14 @@ function fixedPointShow(g, x0, p)
     xSol = 'No Answer';
     
     nMax = 100;
+    
+    fprintf('%s %17s\n', 'n', 'x(n)')
+    fprintf('%d %20.15f\n', 0, x(1))
+    
     for n = 1:nMax
         x(n+1) = g(x(n)); % at end: 51 elements in x if goes until nmax
+    
+        fprintf('%d %20.15f\n', n, x(n+1))
         
         if abs(x(n+1) - x(n)) <= 0.5*10^(-p)
             xSol = x(n+1);
