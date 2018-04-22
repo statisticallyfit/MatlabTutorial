@@ -5,7 +5,7 @@ function [xSol, allXs] = bisectE(f, a, b) % bisection to eps precision
     
     % Calculating num steps required to find solution with
     % RELATIVE ERROR less than e_machine = 2^-52 given interval. 
-    nMax = ceil(log( (abs(b - a)/b) * 2^52) / log(2));
+    nMax = ceil(log( abs((b - a)/b) * 2^52) / log(2));
     isConverged = false;
     
     % starting
