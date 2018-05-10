@@ -1,4 +1,4 @@
-close all;clear all;clc
+close all;clear all;
 %Enter data
 x=[1 1.3 1.6 1.9 2.2];
 y=[0.1411 -0.6878 -0.9962 -0.5507 0.3115];

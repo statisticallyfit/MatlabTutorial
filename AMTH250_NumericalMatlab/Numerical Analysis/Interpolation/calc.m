@@ -1,6 +1,6 @@
 % poly = interpolated symbolic polynomial
 % xInterps = row vec of values to substitute into poly
-function [yInterps] = estimateInterp(poly, xInterps)
+function [yInterps] = calc(poly, xInterps)
     syms x; 
-    yInterps = vpa(subs(poly, x, xInterps), 10);
+    yInterps = subs(poly, x, xInterps);
 end
