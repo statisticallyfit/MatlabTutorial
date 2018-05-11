@@ -20,15 +20,19 @@ for k = 1:n
     end
     z = zeros(1,n);
     z(k) = 1;
-    plot(xx,yy,'k','lineWidth',1.5)
+    plot(xx,yy,'k','lineWidth',1.5) % plotting the lagrange poly
     axis([0.9 2.3 -.6 1.5])
     hold on
-    plot(x,z,'.r','MarkerSize',16)
+    plot([0.9 2.3], [0 0], 'k-') % x-axis
+    plot(x,z,'.r','MarkerSize',16) % lagrange poly is zero for other x-vals other than the one we are on. 
+    % so if this is the kth Lagrange poly, then at x(k) Lk(x(k)) = 1 and  0
+    % for any other k. 
+    
     xlabel('$x$','Interpreter','latex','FontSize',32)
     ylabel('$L_' + string(k) + '(x)$','Interpreter','latex','FontSize',32)
     box on
     grid on   
-    saveas(gcf,"L" + string(k) + ".png") 
+    saveas(gcf,"L_lec_" + string(k) + ".png") 
     hold off
 end   
 
