@@ -1,9 +1,16 @@
-% ai, bi, ci, di = each is a vector of length n - 1 and contain
+%%% Source of this algorithm comes from Timothy Sauer book, section 3.4 on cubic splines. 
+
+%ai, bi, ci, di = each is a vector of length n - 1 and contain
 % the cubic spline coefficients
 % splinePolys = the n-1 cubic spline polynomials. 
 % xdata, ydata = the input data, where n = length(xdata) = length(ydata)
-function splinePolys = cubicSplineNatural(xData, yData)
+
+% NOTE: need n >= 4 otherwise we get rank-deficient b coefs
+
+function splinePolys = notKnotCubicSpline(xData, yData)
     n = length(xData); % should equal length ydata
+    xData = sym(xData);
+    yData = sym(yData);
     
     % making all calculations symbolic. 
     a = sym(zeros(1, n-1));
@@ -12,24 +19,26 @@ function splinePolys = cubicSplineNatural(xData, yData)
     d = sym(zeros(1, n));
     
     % setting up the intermediate coefs
-    dx(1: n-1) = sym(xData(2:n) - xData(1:n-1));
-    dy(1:n-1) = sym( yData(2:n) - yData(1:n-1) );
+    dx(1: n-1) = xData(2:n) - xData(1:n-1);
+    dy(1:n-1) = yData(2:n) - yData(1:n-1);
     
     % solve for di's
-    d(1:n) = sym(yData(1:n));
+    d(1:n) = yData(1:n);
     
     % solve the matrix for the bi's
     deltaMat = sym(zeros(n, n));
-    deltaMat(1, 1) = 1;
-    deltaMat(n, n) = 1;
     coefs = sym(zeros(n, 1));
     
-    for p = 1:length(dx)-1
-        deltaMat(p+1, p:p+2) = [dx(p), 2*(dx(p) + dx(p+1)), dx(p+1)];
-        coefs(p+1) = 3 * (dy(p+1) ./ dx(p+1) - dy(p) ./ dx(p) );
+    % not-a-knot spline conditions (note: need n >= 4)
+    deltaMat(1, 1:3) = [dx(2),   -(dx(1) + dx(2)),   dx(1)];
+    deltaMat(n, n-2:n) = [dx(n-1),   -(dx(n-2) + dx(n-1)),  dx(n-2)];
+    
+    for i = 2:n-1
+        deltaMat(i, i-1:i+1) = [dx(i-1), 2*(dx(i-1) + dx(i)),   dx(i)];
+        coefs(i) = 3 * (dy(i) ./ dx(i) - dy(i-1) ./ dx(i-1) );
     end
     
-   % b(1:n) = zeros(1, n);
+    % get the bi coefficients. 
     b(1:n) = linsolve(deltaMat, coefs);
     
     % solve for ai's
@@ -47,18 +56,16 @@ function splinePolys = cubicSplineNatural(xData, yData)
     % Si(x) = di + ci(x - xi) + bi(x - xi)^2 + ai(x - xi)^3 on [xi, x_i+1]
     % for i = 1... n-1
     
-    % Make the symbolic list of polynomials. 
-    splinePolys = sym(zeros(1, n-1)); % there are n-1 splines for the n data points
-    
     % generate the n-1 order polynomial variables
     xs = sym(zeros(n, 1));
     syms x;
     
-    p = n:-1:0; % the poly powers
-    xi = sym(xData(1:n-1));
-    Si = transpose(x - xi) .^ p; % the ith spline without coefficients
+    p = 3:-1:0; % the poly powers
+    xi = xData(1:n-1);
+    Si = transpose(transpose(x - xi) .^ p); % the ith spline without coefficients
     
     % done: each spline is on intervals [x1, x2], [x2, x3], ...[x_n-1, xn]
-    splinePolys = transpose(sum(transpose([a; b; c; d]' .* Si))); % last transpose is for prettiness.
+    cof = transpose([a; b ; c; d]);
+    splinePolys = diag(cof * Si); 
     
 end

@@ -2,14 +2,19 @@
 % xs = original xs
 % ys = original ys
 % xRange = a vector of length 2 containing min and max x values
-function plotPoly(xData, yData, xRange, poly)
+function plotPoly(xData, yData, poly, xRange)
     % PLOTTING the data with the curve
     
     % making range for plotting the interpolated polynomial
     syms x; 
     
-    xmin = xRange(1);
-    xmax = xRange(2);
+    if nargin == 3 % if range has not been supplied, then get range of data.
+        xmin = min(xData);
+        xmax = max(xData);
+    else
+        xmin = xRange(1);
+        xmax = xRange(2);
+    end
     polyXs = xmin : 0.01 :xmax;
     polyYs = subs(poly, x, polyXs);
     ymin = min(polyYs);
