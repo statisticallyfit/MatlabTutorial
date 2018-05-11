@@ -54,6 +54,9 @@ function splinePolys = clampedCubicSpline(xData, yData, A, B)
     b = b(1:end-1);
     d = d(1:end-1);
     
+    
+    %disp([a; b; c; d]')
+    
     % the natural cubic spline is
     % Si(x) = di + ci(x - xi) + bi(x - xi)^2 + ai(x - xi)^3 on [xi, x_i+1]
     % for i = 1... n-1
