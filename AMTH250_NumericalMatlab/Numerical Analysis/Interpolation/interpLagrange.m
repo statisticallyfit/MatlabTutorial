@@ -21,7 +21,8 @@ function [poly, Ls] = interpLagrange(xData, yData)
     end
     
     % MAKING THE (n-1)th-order polynomial out of the lagrange poly vec
-    poly = vpa(sum(yData .* Ls), 10);
+    poly = sum(yData .* Ls);
+    %poly = vpa(sum(yData .* Ls), 10);
     
     
     % plotting the polynomial

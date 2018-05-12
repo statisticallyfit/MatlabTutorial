@@ -7,7 +7,7 @@
 
 % NOTE: need n >= 4 otherwise we get rank-deficient b coefs
 
-function splinePolys = notKnotCubicSpline(xData, yData)
+function splinePolys = notAKnotCubicSpline(xData, yData)
     n = length(xData); % should equal length ydata
     xData = sym(xData);
     yData = sym(yData);
@@ -52,7 +52,7 @@ function splinePolys = notKnotCubicSpline(xData, yData)
     b = b(1:end-1);
     d = d(1:end-1);
     
-    disp([a; b; c; d]')
+    %disp([a; b; c; d]')
     
     
     % the natural cubic spline is

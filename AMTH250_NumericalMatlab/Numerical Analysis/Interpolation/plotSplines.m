@@ -2,15 +2,22 @@
 % polynomials)
 % xs = original xs
 % ys = original ys
-function plotSplines(xData, yData, splinePolys)
+function plotSplines(xData, yData, splinePolys, lineColorType)
     % making range for plotting the interpolated polynomial
     syms x; 
     n = length(xData);
     
-    figure(1); clf; hold on; grid on; grid minor;
+    figure(1);  hold on; grid on; grid minor;
     
-    % plot data points
-    plot(xData, yData, 'b.', 'MarkerSize', 30);
+    % plot data points - if linecolor is given, then set dots color black
+    % else the whole thing is just blue. 
+    dotColorType = 'k.';
+    if nargin == 3 % then we are just plotting one all-blue dot-spline thing. 
+        dotColorType = 'b.';
+        lineColorType = 'b-';
+    end
+    plot(xData, yData, dotColorType, 'MarkerSize', 30);
+    
     
     for i = 1:n-1
         % getting calculated values of the ith spline poly in the interval of 
@@ -19,7 +26,7 @@ function plotSplines(xData, yData, splinePolys)
         ss = subs(splinePolys(i), x, xx);
         
         %plotting
-        plot(xx, ss, 'b-', 'LineWidth', 2)
+        plot(xx, ss, lineColorType, 'LineWidth', 2)
     end
     
     % add x-axis
