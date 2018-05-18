@@ -23,23 +23,29 @@ function area = simplePolyArea(x, y)
     
     % Case 1: if x(1) ~= x(n) then append x(n+1) = x(1) (same for y
     % vector), and upper limit for loop is n = limit
-    if x(1) ~= x(n) && y(1) ~= y(n)
-        x(n+1) = x(1);
-        y(n+1) = y(1); 
-        limit = n;
+    %if x(1) ~= x(n) && y(1) ~= y(n)
+    %    x(n+1) = x(1);
+    %    y(n+1) = y(1); 
+    %    limit = n;
     % CASE 2: x(1) = x(n) and y(1) = y(n), no appending done    
-    else
-        limit = n - 1; 
-    end
+    %else
+    %    limit = n - 1; 
+    %end
+    x(n+1) = x(1);
+    y(n+1) = y(1); % even if this is already satisfied, this makes no
+    % difference to the final answer. 
     
+    area = 0.5 * abs(sum((x(1:n) - x(2:n+1)) .* (y(1:n) + y(2:n+1)))); 
     
     % Assuming vectors x and y are the same length
-    for ii = 1: limit
+    %for ii = 1: limit
         %%%fprintf('%d  x(i) = %.2f, x(i + 1) = %.2f\n', ii, x(ii), x(ii+1));
-        coordinateProduct = (x(ii) - x(ii + 1)) * (y(ii) + y(ii+1));
-        cumSum = cumSum + coordinateProduct;
-    end
+    %    coordinateProduct = (x(ii) - x(ii + 1)) * (y(ii) + y(ii+1));
+    %    cumSum = cumSum + coordinateProduct;
+    %end
     
-    area = (1/2) * abs( cumSum );
+    %area = (1/2) * abs( cumSum );
     
 end
+
+%MARK (4/4)

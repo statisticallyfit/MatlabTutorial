@@ -21,8 +21,8 @@ function plotRoot(f, a, b)
     axis([xLimits, yLimits])
 
     % Plotting the curve
-    plot(xs, fs, 'LineWidth', 3);
+    plot(xs, fs, 'LineWidth', 2);
     
     % Plot the root point
-    plot(xSols, ySols, 'r.', 'MarkerSize', 20);
+    plot(xSols, ySols, 'r.', 'MarkerSize', 25);
 end

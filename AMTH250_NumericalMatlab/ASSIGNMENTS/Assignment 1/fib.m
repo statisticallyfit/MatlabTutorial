@@ -25,8 +25,11 @@ function [F, Q] = fib(n)
     end
     
     % Generating the quotients from the Fibonacci numbers.
-    for ii = 1:(n-1)
-        Q(ii) = F(ii + 1) / F(ii); 
-    end
+    %for ii = 1:(n-1)
+    %    Q(ii) = F(ii + 1) / F(ii); 
+    %end
+    Q = F(2:n) ./ F(1:n-1);
         
 end
+
+%MARK (3/3)

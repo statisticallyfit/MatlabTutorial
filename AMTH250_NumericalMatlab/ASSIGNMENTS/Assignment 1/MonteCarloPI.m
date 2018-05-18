@@ -28,28 +28,14 @@ ys = rand(1, n) * (1 + 1) - 1;
 % Step 3: determine the number (c) for which x^2 + y^2 <= 1
 % (meaning, the number of coordinates that lie inside or on
 % the unit circle at the origin)
-
-iis = 1:n;
-circlePoints = xs(iis) .^ 2 + ys(iis) .^ 2;
+circlePoints = xs .^ 2 + ys .^ 2;
 % finding the count of points that are on or inside the  circle
 c = sum(circlePoints <= 1);
-
-
-% NOTE; this is how to do it with a for-loop but it was too inefficient so I used
-% the vectorized version above. 
-%for ii = 1:n
-%    % for each coordinate pair that lies on or inside
-%    % the circle, increment the count. 
-%    if xs(ii)^2 + ys(ii)^2 <= 1
-%        c = c + 1;
-%    end
-%end
 
 
 % Step 4: now estimate Pi by multiplying c/n by area of square (4)
 % that the circle lies inside
 estimatePI = 4*c / n; 
-
 format long
 disp(['The estimate of pi = ', num2str(estimatePI)])
 
@@ -62,24 +48,40 @@ clf; % clears the current figure/plot - if we do close all this is not necessary
 
 % getting points that lie outside the circle versus inside and on the
 % circle
-xsInside = zeros(1, c); % is a vector to hold x-coordinate of coordinate
+cInside = find(circlePoints <= 1);
+cOuts = find(circlePoints > 1);
+
+
+%xsInside = zeros(1, c); % is a vector to hold x-coordinate of coordinate
 % pair that lies inside the unit circle
-ysInside = zeros(1, c);
+%ysInside = zeros(1, c);
 
-xsOutside = zeros(1, n - c);
-ysOutside = zeros(1, n- c); 
+%xsOutside = zeros(1, n - c);
+%ysOutside = zeros(1, n- c); 
 
-for ii = 1:n
-    %   if points are inside and on the circle, put them in the 'inside'
-    %   vector. 
-    if xs(ii)^2 + ys(ii)^2 <= 1
-        xsInside(ii) = xs(ii);
-        ysInside(ii) = ys(ii);
-    else % the points are outside the circle, put them in the 'outside' vector
-        xsOutside(ii) = xs(ii);
-        ysOutside(ii) = ys(ii);
-    end
-end
+%for ii = 1:n
+%    %   if points are inside and on the circle, put them in the 'inside'
+%    %   vector. 
+%    if xs(ii)^2 + ys(ii)^2 <= 1
+%        xsInside(ii) = xs(ii); % some indices in the xsInside vec are
+%        skipped, causing extra zeroes to be plotted on the graph! NOT
+%        CORRECT. 
+
+%        ysInside(ii) = ys(ii);
+%    else % the points are outside the circle, put them in the 'outside' vector
+%        xsOutside(ii) = xs(ii);
+%        ysOutside(ii) = ys(ii);
+%    end
+%end
+
+
+%% TEACHER COMMENT
+%NOTE: by default xsInside, ysInside, xsOutside and ysOutside have entries
+%of zero, some of which will not be overwritten by the above code. Thus the
+%plots of the random points below will include multiple points at the
+%origin that were probably not part of the random selection of numbers.
+%(See the blue dot at the centre of your plot.) 
+%%
 
 
 figure(1)
@@ -102,11 +104,15 @@ plot([0 0], [-1, 1], 'k-') % the y-axis
 plot([-1, 1], [0, 0], 'k-') % the axis, both with black lines
 
 % Plotting the Monte Carlo Data. 
-plot(xsInside, ysInside, 'r.') % plot inside dots as red points. 
-plot(xsOutside, ysOutside, 'b.') % plot outside dots as blue dots. 
+plot(xs(cInside), ys(cInside), 'r.') % plot inside dots as red points. 
+plot(xs(cOuts), ys(cOuts), 'b.') % plot outside dots as blue dots. 
 
 % Now labels
 xlabel('x')
 ylabel('y')
 title('The Monte Carlo Estimate of Pi')
 
+
+
+%MARK (4.5/5) -- this is a good code, but be careful not to introduce extra
+%points when visualising your variables/data

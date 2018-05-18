@@ -67,9 +67,9 @@ for ii = 1:length(Ns)
     % Step 8: display the n-value and error
     
     fprintf('%-14d  %.5f  %15.5f  %15.5f  %20.5f \n', n, areaPolygonTrue, areaPolygonEstimate, ...
-        absoluteErrorOfArea, relativeErrorOfArea)
-    %fprintf(['n = %d; Actual area = %.5f; Estimated area = %.5f; Absolute error = %.5f; '...
-    %    'Relative error = %.5f %s \n'], n, areaPolygonTrue, areaPolygonEstimate, absoluteErrorOfArea, ...
-    %    relativeErrorOfArea*100, '%')
+        absoluteErrorOfArea, relativeErrorOfArea); %% TEACHER NOTE: this makes a very nice table!
     
 end
+
+
+%MARK (5/5)
