@@ -1,19 +1,14 @@
+% p = power for a relative error (p > 0) so if we want to calculate
+% the number of steps for relative error of 10^-12, give p = 12. 
+% f = function handle to estimate the root of.
+% a, b = interval, with a <= b. 
+function [xSol, allXs] = bisect(f, a, b, p)
 
-% Gilat book, page 81 + mix of lecture notes (lec 10)
-
-% tests: 
-% fx = x^3 + x - 1   [0,1]
-% fx = 8 - 4.5 * (x - sin(x))   [2,3]
-% @(x)exp(x)+x.^4+x-2        
-%       bisectRoot(f, 0, 1, 5*10^(-7), 30)
-
-function [xSol, allXs] = bisectP(f, a, b, p)
-
-    xL = a; 
-    xR = b; 
+    xL = min([a, b]); 
+    xR = max([a, b]); 
     
     % Calculating num steps
-    nMax = ceil(log( (abs(b - a)) * 2 * 10^p) / log(2));
+    nMax = ceil( log( (abs(b - a)) * 10^p / abs(a) ) / log(2) );
     isConverged = false;
     
     % starting
@@ -54,14 +49,3 @@ function [xSol, allXs] = bisectP(f, a, b, p)
     end  
     
 end
-
-%%% STOP
-% (1) when current tolerance (length of interval div by 2 = (b-a)/2) is 
-% less than the given tolerance (given by user). 
-% (2) or when we get exact f(est) = 0
-
-%%% Additional Notes on bisection Method %%%
-% * the method always converges provided a root is trapped in [a,b]
-% * the method may fail when the function is tangent to the axis and 
-% does not cross the axis at f(x) = 0. 
-% * the method converges slowly compared to other methods. 
