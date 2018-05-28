@@ -7,21 +7,20 @@ function [xSol, allXs] = bisect(f, a, b, p)
     xL = min([a, b]); 
     xR = max([a, b]); 
     
-    % Calculating num steps
-    nMax = ceil( log( (abs(b - a)) * 10^p / abs(a) ) / log(2) );
-    isConverged = false;
+    % Set a fixed num steps
+    nMax = 100;
+    disp(ceil( log(abs(b-a)*10^p/abs(a)) / log(2) ))
     
     % starting
     xSol = 'No Answer'; 
     fa = f(a);
-    allXs = zeros(1, nMax);
     xNew = 0;
+    x = zeros(1, nMax);
     
     for n = 1: nMax
         xNew = (a + b)/2; 
+        x(n) = xNew;
         fNew = f(xNew);
-        
-        allXs(n) = xNew; 
         
         if fa*fNew > 0
             a = xNew; % new interval is [estimate, b]
@@ -30,22 +29,16 @@ function [xSol, allXs] = bisect(f, a, b, p)
             b = xNew; % new interval [a, estimate]
         end
         
-        % no real need since already have nmax prepared
-        if abs(b - a) <= abs(a * 0.5*10^(-p))
+        % TODO: compare if really need the x-list
+        fprintf('a = %.5f, x(n-1) = %.5f, b = %.5f, x(n) = %.5f\n', a, x(n-1), b, x(n))
+        
+        if abs(x(n) - x(n-1)) <= abs(x(n-1) * 10^(-p))
             xSol = xNew;
-            isConverged = true;
             break;
         end
         
     end
         
     fprintf('n = %d, nMax = %d, solution = %.*f\n', n, nMax, (p), xNew)
-    
-    
-    % Plotting Convergence
-    plotConvergence(allXs);
-    if isConverged
-        plotRoot(f, xL, xR);
-    end  
     
 end
