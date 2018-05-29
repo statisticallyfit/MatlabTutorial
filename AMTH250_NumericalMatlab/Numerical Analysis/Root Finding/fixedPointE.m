@@ -10,7 +10,7 @@ function [xSol, x] = fixedPointE(g, x0)
     
         x(n+1) = g(x(n)); % at end: 51 elements in x if goes until nmax
     
-        if abs(x(n+1) - x(n)) <= eps * abs(x(n+1)) % relative error with eps comparison
+        if abs(x(n+1) - x(n)) <= eps * abs(x(n)) % relative error with eps comparison
             xSol = x(n+1);
             break
         end
