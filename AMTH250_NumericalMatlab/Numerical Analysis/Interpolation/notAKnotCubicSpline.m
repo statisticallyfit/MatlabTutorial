@@ -71,4 +71,13 @@ function splinePolys = notAKnotCubicSpline(xData, yData)
     cof = transpose([a; b ; c; d]);
     splinePolys = diag(cof * Si); 
     
+    % add the intervals
+    xIntervals = [];
+    for i = 1:n-1
+        xIntervals = [xIntervals; [xData(i), xData(i+1)]];
+    end
+    xIntervals = sym(xIntervals);
+    
+    splinePolys = [splinePolys, xIntervals];
+    
 end

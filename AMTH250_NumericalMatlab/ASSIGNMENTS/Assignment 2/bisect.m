@@ -22,15 +22,18 @@ function xSol = bisect(f, a, b, p)
     end
     
     % starting
-    xSol = 'No Answer'; 
+    xSol = 'No Answer';  % if this value remains at the end, it means we haven't found the 
+    % solution in nMax iterations. 
     fa = f(a);
     xNew = 0;
     
     % Making a list of previous root estimates so that we can calculate the
     % tolerance for each iteraction. 
-    x = zeros(1, nMax);
+    x = zeros(1, steps);
     x(1) = 0;
     
+    % n =  number of iterations needed to reach solution to within p
+    % decimals. 
     for n = 1: nMax
         xNew = (a + b)/2; 
         x(n+1) = xNew;
@@ -42,8 +45,6 @@ function xSol = bisect(f, a, b, p)
         else
             b = xNew; % new interval [a, estimate]
         end
-        
-        %fprintf('a = %.5f, x(n-1) = %.5f, b = %.5f, x(n) = %.5f\n', a, x(n), b, x(n+1))
         
         % relative error must be less than 10^-p. We need this tolerance check here
         % if either a or b = 0 since calculating nMax directly would yield
@@ -59,6 +60,6 @@ function xSol = bisect(f, a, b, p)
     % the question asked.
     % n = number of iterations required to reach xSol to within p decimal
     % places. 
-    fprintf('n = %d, nMax = %d, steps = %d, solution = %.*f\n', n, nMax, steps,  p,xSol)
+    fprintf('n = %d, nMax = %d, solution = %.*f\n', n, nMax, p,xSol)
     
 end

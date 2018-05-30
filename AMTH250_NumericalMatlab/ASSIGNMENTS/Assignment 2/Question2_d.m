@@ -7,6 +7,7 @@ y = f(x);
 
 % part d) Estimate cos(1) = cos(2*0.5) -----------------------------------------------------------
 [polyInterp, ~] = interpLagrange(x, y);
+fprintf('The interpolated polynomial is: %s\n', string(vpa(polyInterp, 5)))
 % vpa(polyInterp, 8) % rounded to 8 decimals
 
 % estimate cos(1) by plugging in x = 0.5 for y = cos(2x)
@@ -23,14 +24,12 @@ figure(1); clf; hold on; grid on; grid minor
 xx = -1 : 0.01: 2;
 % add data points
 plot(x, y, 'r.', 'MarkerSize', 30);
-% add lagrange polynomial
-plot(xx, subs(L3, symvar(L3), xx), 'k-', 'LineWidth', 2);
 % add the original function f(x) = cos(2x)
 plot(xx, f(xx), 'b-', 'LineWidth', 2);
-% For fun add the interpolating polynomial
+% Add the Lagrange interpolating polynomial
 plot(xx, subs(polyInterp, symvar(polyInterp), xx), 'm-', 'LineWidth', 2);
 % resize the axis
 axis([-1, 2, -1.2, 1.2]);
 
-legend('Data', 'Third Lagrange Poly', 'f(x) = cos(2x)', 'Interpolating Poly', 'Location', 'Best')
+legend('Data', 'f(x) = cos(2x)', 'Interpolating function', 'Location', 'Best')
 hold off;

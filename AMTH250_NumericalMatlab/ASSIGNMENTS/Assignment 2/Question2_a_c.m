@@ -13,13 +13,13 @@ L3 = vpa(expand((x - 0)*(x - 0.2)*(x - 0.6)*(x - 0.8)*(x - 1)./((0.4-0)*(0.4-0.2
 x = [0 0.2 0.4 0.6 0.8 1];
 y = f(x);
 [~, Ls] = interpLagrange(x, y); % calculating the symbolic polynomial and lagrange polynomials. 
-L3_auto = vpa(Ls(3), 7);
+L3_myfunc = vpa(Ls(3), 7);
 
 % check that the hand-writtend L3(x) lagrange polynomial is equal to the
 % one made from my function. 
 disp('L3 = '); disp(L3);
-disp('L3_auto = '); disp(L3_auto)
-fprintf('equal if 1, not equal if 0: %d\n', isequal(L3_auto, L3))
+disp('L3_myfunc = '); disp(L3_myfunc)
+fprintf('The two methods yield same results: %d\n', isequal(L3_myfunc, L3))
 
 
 % Now plot the third lagrange polynomial over [0, 1]

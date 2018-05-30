@@ -13,12 +13,15 @@ function xSol = secant(f, a, b, p)
     x(1) = min([a, b]);
     x(2) = max([a, b]); 
     
+    
+    % n =  number of iterations needed to reach solution to within p
+    % decimals. 
     for n = 2: nMax
         
         x(n+1) = x(n) - f(x(n)) / ( (f(x(n)) - f(x(n-1))) / (x(n) - x(n-1)) );
         
         if abs(x(n+1) - x(n)) <= abs(x(n)) * 10^(-p)
-            xSol = x(n+1); % if we are below tolerance, then we are DONE!
+            xSol = x(n+1); % if we are below tolerance, then we are DONE
             break
         end
     end

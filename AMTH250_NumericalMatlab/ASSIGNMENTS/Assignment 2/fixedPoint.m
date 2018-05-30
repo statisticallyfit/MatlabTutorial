@@ -13,6 +13,9 @@ function xSol = fixedPoint(g, x0, p)
     
     x(1) = x0; % initial vector to hold all the previous root estimates. 
     
+    
+    % n =  number of iterations needed to reach solution to within p
+    % decimals. 
     for n = 1:nMax
     
         x(n+1) = g(x(n)); 

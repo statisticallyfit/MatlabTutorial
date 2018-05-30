@@ -21,6 +21,8 @@ function xSol = newton(f, fDeriv, x0, p)
     x(1) = x0; 
     nMax = 100;
      
+    % n =  number of iterations needed to reach solution to within p
+    % decimals. 
     for n = 1: nMax
         x(n+1) = x(n) - f(x(n)) / fDeriv(x(n));
         
