@@ -3,7 +3,7 @@
 % ss = previous sum estimates for each interval size N from 2 to 2^16
 % s = 
 function [ss, hs] = trapezoidIter(f, a, b)
-tic
+
     for j = 1:16 % loop over powers of 2
         N = 2^j;
         h = (b-a)/N;
@@ -21,5 +21,4 @@ tic
         fprintf('Solution with %5i intervals is %13.9f\n', N, s)
         
     end
-    toc
 end
